@@ -21,229 +21,110 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class User extends IdentifiableObject implements Serializable {
-	
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@JsonProperty
-    private UUID uuid;
+	private UUID uuid;
 
-   // @JsonProperty
-   // private String id;
+	@JsonProperty
+	private String displayName;
 
-    /**
-     * Required and unique.
-     */
-    @JsonProperty
-    private String username;
-    
-    protected User createdBy;
-    protected User lastUpdatedBy;
+	@JsonProperty
+	private String username;
 
-    /**
-     * Indicates whether this user can only be authenticated externally, such as
-     * through OpenID or LDAP.
-     */
-    @JsonProperty
-    private boolean externalAuth;
+	private boolean externalAuth;
 
-    /**
-     * Unique OpenID.
-     */
-    @JsonProperty
-    private String openId;
+	@JsonProperty
+	private String openId;
 
-    /**
-     * Unique LDAP distinguished name.
-     */
-    @JsonProperty
-    private String ldapId;
+	@JsonProperty
+	private String ldapId;
 
-    /**
-     * Required. Will be stored as a hash.
-     */
-    @JsonProperty
-    private String password;
+	@JsonProperty
+	private String password;
 
-    /**
-     * Required. Does this user have two factor authentication
-     */
-    @JsonProperty
-    private boolean twoFA;
+	@JsonProperty
+	private boolean twoFA;
 
-    /**
-     * Required. Automatically set in constructor
-     */
-    @JsonProperty
-    private String secret;
+	@JsonProperty
+	private String secret;
 
-    /**
-     * Date when password was changed.
-     */
-    @JsonProperty
-    private Date passwordLastUpdated;
+	@JsonProperty
+	private Date passwordLastUpdated;
 
-    /**
-     * Set of user roles.
-     */
-    @JsonProperty
-    private Set<UserRole> userRoles = new HashSet<>();
+	@JsonProperty
+	private Set<UserRole> userRoles = new HashSet<>();
 
+	@JsonProperty
+	private Date accountExpiry;
 
-    /* Category option group set dimensions to constrain data analytics
-     aggregation.
-    */
-    @JsonProperty
-    private Set<CategoryOptionGroupSet> cogsDimensionConstraints = new HashSet<>();
+	@JsonProperty
+	private String surname;
 
+	@JsonProperty
+	private String firstName;
 
-    //  Category dimensions to constrain data analytics aggregation.
+	@JsonProperty
+	private String email;
 
-    @JsonProperty
-    private Set<Category> catDimensionConstraints = new HashSet<>();
+	@JsonProperty
+	private String phoneNumber;
 
+	@JsonProperty
+	private String jobTitle;
 
-    // List of previously used passwords.
+	@JsonProperty
+	private String introduction;
 
-    @JsonProperty
-    private List<String> previousPasswords = new ArrayList<>();
+	@JsonProperty
+	private String gender;
 
+	@JsonProperty
+	private Date birthday;
 
-    //Date of the user's last login.
+	@JsonProperty
+	private String nationality;
 
-    @JsonProperty
-    private Date lastLogin;
+	@JsonProperty
+	private String employer;
 
+	@JsonProperty
+	private String education;
 
-    //The token used for a user account restore. Will be stored as a hash.
+	@JsonProperty
+	private String interests;
 
-    @JsonProperty
-    private String restoreToken;
+	@JsonProperty
+	private String languages;
 
+	@JsonProperty
+	private String welcomeMessage;
 
-    //The token used for a user lookup when sending restore and invite emails.
+	@JsonProperty
+	private Date lastCheckedInterpretations;
 
-    @JsonProperty
-    private String idToken;
+	@JsonProperty
+	private Set<UserGroup> groups = new HashSet<>();
 
+	@JsonProperty
+	private String whatsApp;
 
-    // The timestamp representing when the restore window expires.
+	@JsonProperty
+	private String facebookMessenger;
 
-    @JsonProperty
-    private Date restoreExpiry;
+	@JsonProperty
+	private String skype;
 
-    // Indicates whether this user was originally self registered.
+	@JsonProperty
+	private String telegram;
 
-    @JsonProperty
-    private boolean selfRegistered;
+	@JsonProperty
+	private String twitter;
 
-// Indicates whether this user is currently an invitation.
+	@JsonProperty
+	private Set<OrgUnit> organisationUnits = new HashSet<>();
 
-    @JsonProperty
-    private boolean invitation;
-
-
- /*    Indicates whether this is user is disabled, which means the user cannot
-     be authenticated.*/
-
-    @JsonProperty
-    private boolean disabled;
-    @JsonProperty
-    private boolean isCredentialsNonExpired;
-    @JsonProperty
-    private boolean isAccountNonLocked;
-
-
-
-   /*  The timestamp representing when the user account expires. If not set the
-     account does never expire.*/
-
-    @JsonProperty
-    private Date accountExpiry;
-    @JsonProperty
-    private String surname;
-    @JsonProperty
-    private String firstName;
-    @JsonProperty
-    private String email;
-    @JsonProperty
-    private String phoneNumber;
-    @JsonProperty
-    private String jobTitle;
-    @JsonProperty
-    private String introduction;
-    @JsonProperty
-    private String gender;
-    @JsonProperty
-    private Date birthday;
-    @JsonProperty
-    private String nationality;
-    @JsonProperty
-    private String employer;
-    @JsonProperty
-    private String education;
-    @JsonProperty
-    private String interests;
-    @JsonProperty
-    private String languages;
-    @JsonProperty
-    private String welcomeMessage;
-    @JsonProperty
-    private Date lastCheckedInterpretations;
-    @JsonProperty
-    private Set<UserGroup> userGroups = new HashSet<>();
-    @JsonProperty
-    private String whatsApp;
-    @JsonProperty
-    private String facebookMessenger;
-    @JsonProperty
-    private String skype;
-    @JsonProperty
-    private String telegram;
-    @JsonProperty
-    private String twitter;
-
-    // private FileResource avatar;
-
-    // Backward comp. field, will be removed when front-end has converted to new
-    // User model
-    private transient UserCredentialsDto userCredentials;
-
-
-    // Organisation units for data input and data capture operations.
-
-    @JsonProperty
-    private Set<OrgUnit> organisationUnits = new HashSet<>();
-
-
-// Organisation units for data output and data analysis operations.
-
-    @JsonProperty
-    private Set<OrgUnit> dataViewOrganisationUnits = new HashSet<>();
-
-    // Organisation units for tracked entity instance search operations.
-    @JsonProperty
-
-    private Set<OrgUnit> teiSearchOrganisationUnits = new HashSet<>();
-
-
-    /**
-     * Max organisation unit level for data output and data analysis operations,
-     * may be null.
-     */
-    @JsonProperty
-    private Integer dataViewMaxOrganisationUnitLevel;
-
-    /**
-     * Ordered favorite apps.
-     */
-    @JsonProperty
-    private List<String> apps = new ArrayList<>();
-
-	public User() {
-	}
 }
-

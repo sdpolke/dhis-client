@@ -29,6 +29,7 @@ package com.ezest.dhis2.portal.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
@@ -37,6 +38,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserGroup {
 	
 	@JsonProperty

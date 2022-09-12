@@ -25,6 +25,9 @@ public class PortalConfig {
 	@Value("${dhis2.endpoint.user}")
 	private String userEndpointUrl;
 	
+	@Value("${dhis2.endpoint.user.role}")
+	private String userRoleEndpointUrl;
+	
 	@Value("${dhis2.user.name}")
 	private String userName;
 	
@@ -33,6 +36,9 @@ public class PortalConfig {
 
 	@Value("${dhis2.endpoint.metadata}")
 	private String metadataUrl;
+
+	@Value("${dhis2.endpoint.usergroup}")
+	private String userGroupUrl;
 	
 	@Bean
 	public URI userEndpoint() {
@@ -44,11 +50,24 @@ public class PortalConfig {
 		}
 		return endpoint;
 	}
+	
+	
 	@Bean
 	public URI metadataEndpoint() {
 		URI endpoint = null;
 		try {
 			endpoint = new URI(metadataUrl);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return endpoint;
+	}
+
+	@Bean
+	public URI userGroupEndpoint() {
+		URI endpoint = null;
+		try {
+			endpoint = new URI(apiEndpointUrl + userGroupUrl);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
@@ -66,8 +85,20 @@ public class PortalConfig {
 	
 	@Bean
 	public Dhis2 getDhis2() {
-        Dhis2Config dhis2Config = new Dhis2Config(apiEndpointUrl, userName, userPassword);
-        return new Dhis2(dhis2Config);
+        return new Dhis2(getDhis2Config());
 	}
+	
+	@Bean
+	public PortalDhis2 getPortalDhis2() {
+        return new PortalDhis2(getDhis2Config());
+	}
+
+
+	@Bean
+	public Dhis2Config getDhis2Config() {
+		return new Dhis2Config(apiEndpointUrl, userName, userPassword);
+	}
+	
+	
 
 }

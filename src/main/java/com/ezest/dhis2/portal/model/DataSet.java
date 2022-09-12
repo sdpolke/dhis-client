@@ -1,28 +1,48 @@
 package com.ezest.dhis2.portal.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.model.OrgUnit;
+import org.hisp.dhis.model.PeriodType;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-public class DataSet {
-    private boolean validCompleteOnly;
-    private boolean skipOffline;
-    private int timelyDays;
-    private String name;
-    private String shortName;
-    private long code;
-    private String periodType;
-    private int openFuturePeriods;
-    private int expiryDays;
-    private CategoryCombo categoryCombo;
-    private List<DataSetElements> dataSetElements;
-    private String id;
-    private List<Indicators> indicators = new ArrayList<>();
-    private List<LegendSets> legendSets = new ArrayList<>();
-    private List<OrgUnit> organisationUnits = new ArrayList<>();
+@NoArgsConstructor
+public class DataSet extends NameableObject {
+
+	@JsonProperty
+	private boolean validCompleteOnly;
+	@JsonProperty
+	private boolean skipOffline;
+	@JsonProperty
+	private int timelyDays;
+	@JsonProperty
+	private String name;
+	@JsonProperty
+	private String displayName;
+	//@JsonProperty
+	//private PeriodType periodType;
+	@JsonProperty
+	private int openFuturePeriods;
+	@JsonProperty
+	private int expiryDays;
+	@JsonProperty
+	private CategoryCombo categoryCombo;
+	@JsonProperty
+	private List<DataSetElements> dataSetElements;
+	@JsonProperty
+	private List<Indicators> indicators = new ArrayList<>();
+	@JsonProperty
+	private List<LegendSets> legendSets = new ArrayList<>();
+	@JsonProperty
+	private List<OrgUnit> organisationUnits = new ArrayList<>();
+
 }

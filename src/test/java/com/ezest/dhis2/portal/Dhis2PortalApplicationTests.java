@@ -1,9 +1,19 @@
 package com.ezest.dhis2.portal;
 
+import com.ezest.dhis2.portal.controller.DataSetController;
+import com.ezest.dhis2.portal.controller.OrgUnitController;
 import com.ezest.dhis2.portal.controller.ProgramController;
 import com.ezest.dhis2.portal.controller.UserController;
+import com.ezest.dhis2.portal.controller.UserGroupController;
+import com.ezest.dhis2.portal.controller.UserRoleController;
+import com.ezest.dhis2.portal.model.CategoryCombo;
+import com.ezest.dhis2.portal.model.DataSet;
 import com.ezest.dhis2.portal.model.User;
+import com.ezest.dhis2.portal.model.UserGroup;
 import com.ezest.dhis2.portal.model.UserRole;
+
+import org.hisp.dhis.model.OrgUnit;
+import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -20,17 +30,116 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 class Dhis2PortalApplicationTests {
 
-	
 	@Autowired
 	UserController userController;
-	
 	@Autowired
 	ProgramController programController;
+	@Autowired
+	OrgUnitController orgUnitController;
+	@Autowired
+	UserRoleController userRoleController;
+	@Autowired
+	DataSetController dataSetController;
+	@Autowired
+	UserGroupController userGroupController;
 	
 	@Test
 	void contextLoads() {
 		System.out.println("Context Loads successfully.....");
 	}
+	
+	@Test
+	void testGetUserGroups() {
+		List<UserGroup> userGroups = userGroupController.getUserGroups();
+
+		assertNotNull(userGroups);
+		assertFalse(userGroups.isEmpty());
+		assertNotNull(userGroups.get(0));
+		System.err.println(userGroups.size());
+	}
+	
+	@Test
+	void testGetUserGroup() {
+		UserGroup userGroup = userGroupController.getUserGroup("ZoHNWQajIoe");
+
+		assertNotNull(userGroup);
+		System.err.println(userGroup.toString());
+	}
+	
+	//@Test
+	void testCreateDataSet() {
+		DataSet dataSet = new DataSet();
+		dataSet.setName("Regular flu");
+		
+		PeriodType periodType = new PeriodType();
+		periodType.setName("Quarterly");
+		
+		//dataSet.setPeriodType(periodType);
+		
+		CategoryCombo categoryCombo = new CategoryCombo();
+		categoryCombo.setId("1452089");
+		
+		dataSet.setCategoryCombo(categoryCombo);
+		
+		dataSetController.saveDataSet(dataSet);
+		
+		System.err.println(dataSet.getId());
+		assertNotNull(dataSet.getId());
+	}
+	
+	@Test
+	void testGetDataSets() {
+		List<DataSet> dataSets = dataSetController.getAllDataSets();
+
+		assertNotNull(dataSets);
+		assertFalse(dataSets.isEmpty());
+		assertNotNull(dataSets.get(0));
+		System.err.println(dataSets.size());
+	}
+	
+	@Test
+	void testGetDataSet() {
+		DataSet dataSet = dataSetController.getDataSet("Lpw6GcnTrmS");
+		System.err.println(dataSet.toString());
+		assertNotNull(dataSet);
+	}
+	
+	@Test
+	void testGetUserRoles() {
+		List<UserRole> userRoles = userRoleController.getAllUserRoles();
+
+		assertNotNull(userRoles);
+		assertFalse(userRoles.isEmpty());
+		assertNotNull(userRoles.get(0));
+		System.err.println(userRoles.get(0));
+	}
+	
+	@Test
+	void testGetUserRole() {
+		UserRole userRole = userRoleController.getUserRole("LGWLyWNro4x");
+		System.err.println(userRole.toString());
+		assertNotNull(userRole);
+	}
+	
+	
+	@Test
+	void testGetOrgUnits() {
+		List<OrgUnit> orgUnits = orgUnitController.getAllOrgUnits();
+
+		assertNotNull(orgUnits);
+		assertFalse(orgUnits.isEmpty());
+		assertNotNull(orgUnits.get(0));
+		System.err.println(orgUnits.get(0));
+	}
+	
+	
+	@Test
+	void testGetOrgUnit() {
+		OrgUnit orgUnit = orgUnitController.getOrgUnit("Rp268JB6Ne4");
+		System.err.println(orgUnit.toString());
+		assertNotNull(orgUnit);
+	}
+	
 	
 	@Test
 	void testGetPrograms() {
@@ -48,7 +157,14 @@ class Dhis2PortalApplicationTests {
 		assertNotNull(program);
 	}
 	
-	//@Test
+	@Test
+	void testGetProgramMetadata() {
+		Program program = programController.getProgram("IpHINAT79UW");
+		System.err.println(program.toString());
+		assertNotNull(program);
+	}
+	
+	@Test
 	void testGetAllUsers() {
 		List<User> users = userController.getAllUsers();
 		Assert.assertNotNull(users);
@@ -69,10 +185,10 @@ class Dhis2PortalApplicationTests {
 	void testCreateUser() {
 		User user = new User();
 		user.setUuid(UUID.randomUUID());
-		user.setUsername("UserSomnath");
-		user.setFirstName("Somnath");
-		user.setSurname("Kardak");
-		user.setPassword("Somnath*");
+		user.setUsername("TestUser");
+		user.setFirstName("Ezest");
+		user.setSurname("Test");
+		user.setPassword("Test1234");
 		user.setCreated(new Date(System.currentTimeMillis()));
 		
 		UserRole role = new UserRole();

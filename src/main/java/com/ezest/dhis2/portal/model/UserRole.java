@@ -25,7 +25,8 @@ public class UserRole extends NameableObject {
 	@JsonProperty
 	private Set<String> authorities = new HashSet<>();
 	
-	@JsonProperty
-	private Set<User> members = new HashSet<>();
+	//TODO check why this is not returned by API call
+	//@JsonProperty
+	//private Set<User> members = new HashSet<>();
 
 }
