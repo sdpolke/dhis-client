@@ -1,5 +1,6 @@
 package com.ezest.dhis2.portal;
 
+import com.ezest.dhis2.portal.controller.DataElementController;
 import com.ezest.dhis2.portal.controller.DataSetController;
 import com.ezest.dhis2.portal.controller.OrgUnitController;
 import com.ezest.dhis2.portal.controller.ProgramController;
@@ -12,6 +13,7 @@ import com.ezest.dhis2.portal.model.User;
 import com.ezest.dhis2.portal.model.UserGroup;
 import com.ezest.dhis2.portal.model.UserRole;
 
+import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
@@ -42,6 +44,8 @@ class Dhis2PortalApplicationTests {
 	DataSetController dataSetController;
 	@Autowired
 	UserGroupController userGroupController;
+	@Autowired
+	DataElementController dataElementController;
 	
 	@Test
 	void contextLoads() {
@@ -85,6 +89,24 @@ class Dhis2PortalApplicationTests {
 		
 		System.err.println(dataSet.getId());
 		assertNotNull(dataSet.getId());
+	}
+	
+	@Test
+	void testGetDataElements() {
+		List<DataElement> dataElements = dataElementController.getAllDataElements();
+
+		assertNotNull(dataElements);
+		assertFalse(dataElements.isEmpty());
+		assertNotNull(dataElements.get(0));
+		System.err.println(dataElements.get(0).toString());
+		System.err.println(dataElements.size());
+	}
+	
+	@Test
+	void testGetDataElement() {
+		DataElement dataElement = dataElementController.getDataElement("FTRrcoaog83");
+		System.err.println(dataElement.toString());
+		assertNotNull(dataElement);
 	}
 	
 	@Test
