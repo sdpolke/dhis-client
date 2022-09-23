@@ -15,6 +15,9 @@ import com.ezest.dhis2.portal.model.DataSet;
 import com.ezest.dhis2.portal.model.DataSetRequest;
 import com.ezest.dhis2.portal.service.DataSetService;
 
+import io.swagger.annotations.Api;
+
+@Api(value="DataSet Controller", tags = "DataSet" )
 @RequestMapping(value = "dataSets")
 @RestController
 public class DataSetController {

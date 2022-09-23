@@ -1,17 +1,16 @@
 package com.ezest.dhis2.portal.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.model.OrgUnit;
-import org.hisp.dhis.model.PeriodType;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter

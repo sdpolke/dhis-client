@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.hisp.dhis.model.Objects;
 
-import com.ezest.dhis2.portal.model.UserRole;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;

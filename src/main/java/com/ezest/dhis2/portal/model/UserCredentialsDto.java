@@ -27,16 +27,22 @@
  */
 package com.ezest.dhis2.portal.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.catalina.webresources.FileResource;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
 
-import java.util.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter

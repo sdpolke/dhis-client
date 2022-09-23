@@ -1,9 +1,7 @@
 package com.ezest.dhis2.portal.adapter;
 
-import com.ezest.dhis2.portal.config.PortalConfig;
-import com.ezest.dhis2.portal.model.DataSet;
-import com.ezest.dhis2.portal.model.DataSetRequest;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Objects;
+
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
+import com.ezest.dhis2.portal.config.PortalConfig;
+import com.ezest.dhis2.portal.model.DataSetRequest;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j

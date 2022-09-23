@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.ezest.dhis2.portal.config.PortalConfig;
 import com.ezest.dhis2.portal.model.UserGroup;
-import com.ezest.dhis2.portal.model.UserRole;
 
 @Service
 public class UserGroupService {

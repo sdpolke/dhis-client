@@ -1,17 +1,12 @@
 package com.ezest.dhis2.portal;
 
-import com.ezest.dhis2.portal.controller.DataElementController;
-import com.ezest.dhis2.portal.controller.DataSetController;
-import com.ezest.dhis2.portal.controller.OrgUnitController;
-import com.ezest.dhis2.portal.controller.ProgramController;
-import com.ezest.dhis2.portal.controller.UserController;
-import com.ezest.dhis2.portal.controller.UserGroupController;
-import com.ezest.dhis2.portal.controller.UserRoleController;
-import com.ezest.dhis2.portal.model.CategoryCombo;
-import com.ezest.dhis2.portal.model.DataSet;
-import com.ezest.dhis2.portal.model.User;
-import com.ezest.dhis2.portal.model.UserGroup;
-import com.ezest.dhis2.portal.model.UserRole;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
 
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OrgUnit;
@@ -22,12 +17,23 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import com.ezest.dhis2.portal.controller.CompletionPercentCalculatorController;
+import com.ezest.dhis2.portal.controller.DataElementController;
+import com.ezest.dhis2.portal.controller.DataSetController;
+import com.ezest.dhis2.portal.controller.OrgUnitController;
+import com.ezest.dhis2.portal.controller.ProgramController;
+import com.ezest.dhis2.portal.controller.UserController;
+import com.ezest.dhis2.portal.controller.UserGroupController;
+import com.ezest.dhis2.portal.controller.UserRoleController;
+import com.ezest.dhis2.portal.model.CategoryCombo;
+import com.ezest.dhis2.portal.model.CompletionPercentageCalculatorReq;
+import com.ezest.dhis2.portal.model.DataSet;
+import com.ezest.dhis2.portal.model.User;
+import com.ezest.dhis2.portal.model.UserCredentialsDto;
+import com.ezest.dhis2.portal.model.UserDto;
+import com.ezest.dhis2.portal.model.UserGroup;
+import com.ezest.dhis2.portal.model.UserInfo;
+import com.ezest.dhis2.portal.model.UserRole;
 
 @SpringBootTest
 class Dhis2PortalApplicationTests {
@@ -46,10 +52,25 @@ class Dhis2PortalApplicationTests {
 	UserGroupController userGroupController;
 	@Autowired
 	DataElementController dataElementController;
+	@Autowired
+	CompletionPercentCalculatorController percentCalculatorController;
 	
 	@Test
 	void contextLoads() {
 		System.out.println("Context Loads successfully.....");
+	}
+	
+	@Test
+	void testCalculatePercent() {
+		CompletionPercentageCalculatorReq req = new CompletionPercentageCalculatorReq();
+		req.setDataSetId(359711L);
+		req.setDate("%2021-01%");
+		req.setOUId(559L);
+		
+		double percent = percentCalculatorController.calculatePercentageOfCompletion(req);
+		System.err.println(percent);
+		
+		
 	}
 	
 	@Test
@@ -203,20 +224,32 @@ class Dhis2PortalApplicationTests {
 		
 	}
 	
-	//@Test
+	@Test
 	void testCreateUser() {
-		User user = new User();
+		UserDto user = new UserDto();
+		user.setId(String.valueOf(UUID.randomUUID()));
 		user.setUuid(UUID.randomUUID());
-		user.setUsername("TestUser");
-		user.setFirstName("Ezest");
-		user.setSurname("Test");
-		user.setPassword("Test1234");
+		user.setUsername("shri" + Math.random());
+		user.setFirstName("Shri");
+		user.setSurname("Ezest");
+		user.setPassword("Test123#@");
 		user.setCreated(new Date(System.currentTimeMillis()));
 		
 		UserRole role = new UserRole();
 		role.setId("Ufph3mGRmMo");
 		
 		user.getUserRoles().add(role);
+		
+		UserCredentialsDto credential = new UserCredentialsDto();
+		credential.setId(String.valueOf(UUID.randomUUID()));
+		UserInfo userInfo = new UserInfo();
+		userInfo.setId(user.getId());
+		credential.setUserInfo(userInfo);
+		credential.setUsername(user.getUsername());
+		credential.setPassword(user.getPassword());
+		credential.setUserRoles(user.getUserRoles());
+		
+		user.setUserCredentials(credential);
 		
 		String uuid = userController.createUser(user);
 		Assert.assertNotNull(uuid);

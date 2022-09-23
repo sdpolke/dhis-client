@@ -6,18 +6,16 @@ import java.util.Objects;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 
 import com.ezest.dhis2.portal.config.PortalConfig;
 import com.ezest.dhis2.portal.model.User;
+import com.ezest.dhis2.portal.model.UserDto;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +27,7 @@ public class UserAdapter {
 	@Autowired
 	PortalConfig config;
 
-	public String createUser(User user) {
+	public String createUser(UserDto user) {
 		HttpEntity<User> request = new HttpEntity<>(user);
 		ResponseEntity<ObjectResponse> userResponse = config.restTemplate().exchange(config.userEndpoint(),
 				HttpMethod.POST, request, ObjectResponse.class);
@@ -41,7 +39,7 @@ public class UserAdapter {
 		
 		System.out.println(Objects.toString(userResponse.getBody()));
 		
-		return userResponse.getBody().getResponse().getUid();
+		return "User".concat(getUser(user.getId()).getId()).concat("created Successfully");
 
 	}
 	

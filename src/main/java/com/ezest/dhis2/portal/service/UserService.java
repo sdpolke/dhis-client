@@ -3,13 +3,13 @@ package com.ezest.dhis2.portal.service;
 import java.util.List;
 
 import org.hisp.dhis.query.Query;
-import org.hisp.dhis.response.object.ObjectResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ezest.dhis2.portal.adapter.UserAdapter;
 import com.ezest.dhis2.portal.config.PortalConfig;
 import com.ezest.dhis2.portal.model.User;
+import com.ezest.dhis2.portal.model.UserDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +25,7 @@ public class UserService {
 	@Autowired
 	private UserAdapter userAdapter;
 	
-	public String createUser(User user) {
+	public String createUser(UserDto user) {
 		log.debug("Creating User...");
 //		ObjectResponse res = portalConfig.getPortalDhis2().saveMetadataObject("users", user);
 //		System.err.println(res.toString());

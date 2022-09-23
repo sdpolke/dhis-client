@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ezest.dhis2.portal.model.User;
+import com.ezest.dhis2.portal.model.UserDto;
 import com.ezest.dhis2.portal.service.UserService;
 
+import io.swagger.annotations.Api;
+
+@Api(value="User Controller", tags = "User" )
 @RequestMapping(value = "users")
 @RestController
 public class UserController {
@@ -31,7 +35,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/create")
-	public String createUser(@RequestBody User user) {
+	public String createUser(@RequestBody UserDto user) {
 		return userService.createUser(user);
 	}
 

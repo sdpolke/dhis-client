@@ -1,18 +1,15 @@
 package com.ezest.dhis2.portal.adapter;
 
-import com.ezest.dhis2.portal.config.PortalConfig;
-import com.ezest.dhis2.portal.model.User;
-import com.ezest.dhis2.portal.model.UserGroup;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+
 import org.hisp.dhis.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import com.ezest.dhis2.portal.config.PortalConfig;
+import com.ezest.dhis2.portal.model.UserGroup;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j

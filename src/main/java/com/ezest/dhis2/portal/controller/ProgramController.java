@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ezest.dhis2.portal.model.User;
 import com.ezest.dhis2.portal.service.ProgramService;
-import com.ezest.dhis2.portal.service.UserService;
 
+import io.swagger.annotations.Api;
+
+@Api(value="Program Controller", tags = "Program" )
 @RequestMapping(value = "programs")
 @RestController
 public class ProgramController {
