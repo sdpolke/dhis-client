@@ -1,13 +1,7 @@
 package com.ezest.dhis2.portal;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
-
+import com.ezest.dhis2.portal.controller.*;
+import com.ezest.dhis2.portal.model.*;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.PeriodType;
@@ -17,23 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.ezest.dhis2.portal.controller.CompletionPercentCalculatorController;
-import com.ezest.dhis2.portal.controller.DataElementController;
-import com.ezest.dhis2.portal.controller.DataSetController;
-import com.ezest.dhis2.portal.controller.OrgUnitController;
-import com.ezest.dhis2.portal.controller.ProgramController;
-import com.ezest.dhis2.portal.controller.UserController;
-import com.ezest.dhis2.portal.controller.UserGroupController;
-import com.ezest.dhis2.portal.controller.UserRoleController;
-import com.ezest.dhis2.portal.model.CategoryCombo;
-import com.ezest.dhis2.portal.model.CompletionPercentageCalculatorReq;
-import com.ezest.dhis2.portal.model.DataSet;
-import com.ezest.dhis2.portal.model.User;
-import com.ezest.dhis2.portal.model.UserCredentialsDto;
-import com.ezest.dhis2.portal.model.UserDto;
-import com.ezest.dhis2.portal.model.UserGroup;
-import com.ezest.dhis2.portal.model.UserInfo;
-import com.ezest.dhis2.portal.model.UserRole;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class Dhis2PortalApplicationTests {
@@ -63,11 +46,11 @@ class Dhis2PortalApplicationTests {
 	@Test
 	void testCalculatePercent() {
 		CompletionPercentageCalculatorReq req = new CompletionPercentageCalculatorReq();
-		req.setDataSetId(359711L);
-		req.setDate("%2021-01%");
-		req.setOUId(559L);
+		req.setDataSetId("BfMAe6Itzgt");
+		req.setDate("2022-01");
+		req.setOUId("DiszpKrYNg8");
 		
-		double percent = percentCalculatorController.calculatePercentageOfCompletion(req);
+		String percent = percentCalculatorController.calculatePercentageOfCompletion(req);
 		System.err.println(percent);
 		
 		

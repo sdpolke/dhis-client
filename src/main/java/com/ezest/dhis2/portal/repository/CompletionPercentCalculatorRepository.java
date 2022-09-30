@@ -1,35 +1,43 @@
 package com.ezest.dhis2.portal.repository;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
-import org.springframework.stereotype.Repository;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Repository
 public class CompletionPercentCalculatorRepository {
 	
-	private static final String PERCENT_QUERY = 
+	/*private static final String PERCENT_QUERY =
 			"select data*100.00 /(select count(dataelementid) as num from  public.datasetelement where datasetid = :dataSetId) as percentage"
 			+ " from (select count (distinct dataelementid) as data from (SELECT * FROM public.datavalue where sourceid = :ouId"
 			+ " and periodid = (select periodid from public.period where TO_CHAR(startdate, 'YYYY-MM-DD') like :givenDate"
 			+ " and periodtypeid = (select periodtypeid from public.dataset where datasetid=:dataSetId))"
 			+ " and dataelementid in (select dataelementid from public.datasetelement where datasetid =:dataSetId"
-			+ " )) table1) table2";
-	
+			+ " )) table1) table2";*/
+	private static final String PERCENT_QUERY =
+			"select data*100.00 /(select count(dataelementid) as num from  public.datasetelement where datasetid = " +
+					" (select datasetid from public.dataset where uid = :dataSetId )) as percentage" +
+					" from (select count (distinct dataelementid) as data from (SELECT * FROM public.datavalue" +
+					" where sourceid = (select organisationunitid from public.organisationunit where uid = :ouId)" +
+					" and periodid = (select periodid from public.period where TO_CHAR(startdate, 'YYYY-MM-DD') like :givenDate " +
+					" and periodtypeid = (select periodtypeid from public.dataset where " +
+					" datasetid=(select datasetid from public.dataset where uid = :dataSetId )))" +
+					" and dataelementid in (select dataelementid from public.datasetelement where" +
+					" datasetid =(select datasetid from public.dataset where uid = :dataSetId )" +
+					" )) table1) table2";
 	
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public double calculatePercentageOfCompletion(Long dataSetId, Long ouId, String date) {
+	public double calculatePercentageOfCompletion(String dataSetId, String ouId, String date) {
 		Query query = entityManager.createNativeQuery(PERCENT_QUERY);
-		query.setParameter("dataSetId", dataSetId);
-		query.setParameter("ouId", ouId);
-		query.setParameter("givenDate", date);
-
+		query.setParameter("dataSetId", dataSetId );
+		query.setParameter("ouId",  ouId );
+		query.setParameter("givenDate", "%" + date + "%");
 		BigDecimal result = (BigDecimal) query.getSingleResult();
 		return result.doubleValue();
 	}

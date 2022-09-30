@@ -5,12 +5,14 @@ import com.ezest.dhis2.portal.repository.CompletionPercentCalculatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+
 @Service
 public class CompletionPercentCalculatorService {
     @Autowired
     CompletionPercentCalculatorRepository completionPercentCalculatorRepository;
 
-    public double calculatePercentageOfCompletion(CompletionPercentageCalculatorReq request) {
+    public String calculatePercentageOfCompletion(CompletionPercentageCalculatorReq request) {
 //    	Long periodTypeId = completionPercentCalculatorRepository.findPeriodTypeByDatasetId(request.getDataSetId());
 //    	System.err.println(periodTypeId);
 //    	
@@ -19,7 +21,7 @@ public class CompletionPercentCalculatorService {
 //    	
 //    	Long periodId = completionPercentCalculatorRepository.findPeriodId(periodTypeId, request.getDate());
 //    	System.err.println(periodId);
-    	
-        return completionPercentCalculatorRepository.calculatePercentageOfCompletion(request.getDataSetId(), request.getOUId(), request.getDate());
+        DecimalFormat decfor = new DecimalFormat("0.00");
+        return decfor.format(completionPercentCalculatorRepository.calculatePercentageOfCompletion(request.getDataSetId(), request.getOUId(), request.getDate()));
     }
 }

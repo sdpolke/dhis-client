@@ -13,7 +13,7 @@ public class CompletionPercentageCalculatorReq {
     @JsonProperty
     private String date;
     @JsonProperty
-    private Long OUId;
+    private String OUId;
     @JsonProperty
-    private Long dataSetId;
+    private String dataSetId;
 }

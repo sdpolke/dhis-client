@@ -16,7 +16,7 @@ public class CompletionPercentCalculatorController {
     CompletionPercentCalculatorService completionPercentCalculatorService;
     
     @GetMapping
-    public double calculatePercentageOfCompletion(@RequestBody CompletionPercentageCalculatorReq request) {
+    public String calculatePercentageOfCompletion(@RequestBody CompletionPercentageCalculatorReq request) {
         return completionPercentCalculatorService.calculatePercentageOfCompletion(request);
     }
 }
